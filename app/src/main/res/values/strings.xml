@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PostPc_Ex8</string>
+    <string name="Enter_number">Enter number</string>
+    <string name="find_roots">Find roots!</string>
 </resources>
