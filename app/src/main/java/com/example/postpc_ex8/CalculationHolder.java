@@ -17,15 +17,23 @@ public class CalculationHolder{
     }
 
     public void markItemDone(String itemId){
-        for (CalculationItem calculationItem: this.items){
-            if (calculationItem.getId().equals(itemId)){
-                calculationItem.setStatus("calculation done");
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setStatus("calculation done");
+                break;
             }
         }
+        Collections.sort(this.items);
     }
 
     public void deleteCalculation(String itemId){
-
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.remove(this.items.get(i));
+                break;
+            }
+        }
+        Collections.sort(this.items);
     }
 
     public List<CalculationItem> getItems(){
