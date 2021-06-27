@@ -28,10 +28,10 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     @Override
     public int compareTo(CalculationItem o) {
         if (this.status.equals("currently-calculation") && !o.status.equals("currently-calculation")){
-            return 1;
+            return -1;
         }
         else if (!this.status.equals("currently-calculation") && o.status.equals("currently-calculation")){
-            return -1;
+            return 1;
         }
         return this.number.compareTo(o.number);
     }
