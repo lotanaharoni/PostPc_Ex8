@@ -1,6 +1,7 @@
 package com.example.postpc_ex8;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class CalculationItem implements Serializable, Comparable<CalculationItem> {
 
@@ -8,7 +9,14 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     private long root1;
     private long root2;
     private String status;
-    private String id;
+    private final String id;
+
+    public CalculationItem(long number){
+        this.number = number;
+        this.id = UUID.randomUUID().toString();
+        this.root1 = -1;
+        this.root2 = -1;
+    }
 
     @Override
     public int compareTo(CalculationItem o) {
@@ -51,7 +59,4 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.status = status;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 }
