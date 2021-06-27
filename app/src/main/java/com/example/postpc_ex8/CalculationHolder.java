@@ -26,6 +26,16 @@ public class CalculationHolder{
         Collections.sort(this.items);
     }
 
+    public void markItemCanceled(String itemId){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setStatus("calculation canceled");
+                break;
+            }
+        }
+        Collections.sort(this.items);
+    }
+
     public void deleteCalculation(String itemId){
         for (int i = 0; i < this.items.size(); i++){
             if (this.items.get(i).getId().equals(itemId)){
@@ -38,5 +48,23 @@ public class CalculationHolder{
 
     public List<CalculationItem> getItems(){
         return this.items;
+    }
+
+    public void updateIItemTitle(String itemId, String newTitle){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setStatus(newTitle);
+                break;
+            }
+        }
+    }
+
+    public CalculationItem getItem(String itemId){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                return this.items.get(i);
+            }
+        }
+        return null;
     }
 }
