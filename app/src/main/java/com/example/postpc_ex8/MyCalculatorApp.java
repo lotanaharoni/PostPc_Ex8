@@ -2,8 +2,8 @@ package com.example.postpc_ex8;
 
 import android.app.Application;
 
-public class MyAppActivity extends Application {
-    private static  MyAppActivity appInstance = null;
+public class MyCalculatorApp extends Application {
+    private static MyCalculatorApp appInstance = null;
 
     @Override
     public void onCreate() {
@@ -11,7 +11,7 @@ public class MyAppActivity extends Application {
         appInstance = this;
     }
 
-    public static MyAppActivity getAppInstance(){
+    public static MyCalculatorApp getAppInstance(){
         return appInstance;
     }
 }

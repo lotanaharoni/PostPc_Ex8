@@ -8,14 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolderActivity extends RecyclerView.ViewHolder {
+public class MyCalculatorViewHolder extends RecyclerView.ViewHolder {
     TextView itemCalculationTitle;
     ImageButton itemDeleteImageButton;
     ImageButton itemCancelImageButton;
     ProgressBar progressBarCalculation;
 
 
-    public MyViewHolderActivity(@NonNull View itemView) {
+    public MyCalculatorViewHolder(@NonNull View itemView) {
         super(itemView);
         this.itemCalculationTitle = itemView.findViewById(R.id.itemCalculationTitle);
         this.itemDeleteImageButton = itemView.findViewById(R.id.itemDeleteImageButton);

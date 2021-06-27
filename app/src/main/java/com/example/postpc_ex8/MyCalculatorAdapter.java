@@ -5,16 +5,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolderActivity> {
+public class MyCalculatorAdapter extends RecyclerView.Adapter<MyCalculatorViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolderActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyCalculatorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolderActivity holder, int position) {
+    public void onBindViewHolder(@NonNull MyCalculatorViewHolder holder, int position) {
 
     }
 
