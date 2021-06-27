@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class CalculationItem implements Serializable, Comparable<CalculationItem> {
 
-    private long number;
+    private Long number;
     private long root1;
     private long root2;
     private String status;
@@ -16,11 +16,24 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.id = UUID.randomUUID().toString();
         this.root1 = -1;
         this.root2 = -1;
+        this.status = "currently-calculation";
+    }
+
+    public void updateRoots(long root1, long root2){
+        this.root1 = root1;
+        this.root2 = root2;
+        this.status = "calculation done";
     }
 
     @Override
     public int compareTo(CalculationItem o) {
-        return 0;
+        if (this.status.equals("currently-calculation") && !o.status.equals("currently-calculation")){
+            return 1;
+        }
+        else if (!this.status.equals("currently-calculation") && o.status.equals("currently-calculation")){
+            return -1;
+        }
+        return this.number.compareTo(o.number);
     }
 
     public long getNumber() {

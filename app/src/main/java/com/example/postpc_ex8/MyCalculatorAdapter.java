@@ -31,7 +31,7 @@ public class MyCalculatorAdapter extends RecyclerView.Adapter<MyCalculatorViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyCalculatorViewHolder holder, int position) {
-
+        CalculationItem item = this.allItems.get(position);
     }
 
     @Override
