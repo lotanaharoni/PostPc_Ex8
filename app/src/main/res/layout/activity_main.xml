@@ -10,16 +10,16 @@
         android:id="@+id/numberToEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/Enter_number"
         android:hint="@string/Enter_number"
-        android:textSize="20sp"
         android:inputType="number"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263"
-        android:autofillHints="@string/Enter_number" />
+        app:layout_constraintVertical_bias="0.377" />
 
     <Button
         android:id="@+id/calculateButton"
@@ -27,10 +27,21 @@
         android:layout_height="wrap_content"
         android:text="@string/find_roots"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/showRootsRecycler"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toTopOf="calculateButton"
+        app:layout_constraintTop_toBottomOf="numberToEnter"
+        tools:layout_editor_absoluteX="-15dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
