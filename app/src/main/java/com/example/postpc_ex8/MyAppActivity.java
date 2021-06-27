@@ -10,4 +10,8 @@ public class MyAppActivity extends Application {
         super.onCreate();
         appInstance = this;
     }
+
+    public static MyAppActivity getAppInstance(){
+        return appInstance;
+    }
 }
