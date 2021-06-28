@@ -46,6 +46,15 @@ public class CalculationHolder{
         Collections.sort(this.items);
     }
 
+    public int indexOf(String itemId){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public List<CalculationItem> getItems(){
         return this.items;
     }

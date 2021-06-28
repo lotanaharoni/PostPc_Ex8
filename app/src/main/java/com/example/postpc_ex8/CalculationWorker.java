@@ -47,7 +47,7 @@ public class CalculationWorker extends Worker {
         for (long i = 2; i <=sqrtNumber; i ++){
             long timePassed = System.currentTimeMillis() - timeStartMs;
             if (number % i == 0){
-                if (System.currentTimeMillis() - timeStartMs <= MAX_CALCULATION_TIME) { // TODO: Change time
+                if (System.currentTimeMillis() - timeStartMs <= MAX_CALCULATION_TIME) {
                     root1 = i;
                     root2 = number / i;
                     dataBuilder.putLong("number", number);
@@ -57,7 +57,7 @@ public class CalculationWorker extends Worker {
                     return Result.success(dataBuilder.build());
                 }
             }
-            if (System.currentTimeMillis() - timeStartMs > MAX_CALCULATION_TIME){ //TODO: Change time
+            if (System.currentTimeMillis() - timeStartMs > MAX_CALCULATION_TIME){
                 dataBuilder.putLong("number", number);
                 dataBuilder.putString("reason", "illegal_time_to_calculate");
                 return Result.failure(dataBuilder.build());
