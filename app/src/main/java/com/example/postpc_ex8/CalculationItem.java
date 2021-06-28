@@ -16,21 +16,21 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.id = UUID.randomUUID().toString();
         this.root1 = -1;
         this.root2 = -1;
-        this.status = "currently-calculation";
+        this.status = "currently_calculation";
     }
 
     public void updateRoots(long root1, long root2){
         this.root1 = root1;
         this.root2 = root2;
-        this.status = "calculation done";
+        this.status = "calculation_done";
     }
 
     @Override
     public int compareTo(CalculationItem o) {
-        if (this.status.equals("currently-calculation") && !o.status.equals("currently-calculation")){
+        if (this.status.equals("currently_calculation") && !o.status.equals("currently_calculation")){
             return -1;
         }
-        else if (!this.status.equals("currently-calculation") && o.status.equals("currently-calculation")){
+        else if (!this.status.equals("currently_calculation") && o.status.equals("currently_calculation")){
             return 1;
         }
         return this.number.compareTo(o.number);

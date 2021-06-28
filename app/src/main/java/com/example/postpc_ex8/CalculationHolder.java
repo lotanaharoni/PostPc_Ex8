@@ -19,7 +19,7 @@ public class CalculationHolder{
     public void markItemDone(String itemId){
         for (int i = 0; i < this.items.size(); i++){
             if (this.items.get(i).getId().equals(itemId)){
-                this.items.get(i).setStatus("calculation done");
+                this.items.get(i).setStatus("calculation_done");
                 break;
             }
         }
@@ -29,7 +29,7 @@ public class CalculationHolder{
     public void markItemCanceled(String itemId){
         for (int i = 0; i < this.items.size(); i++){
             if (this.items.get(i).getId().equals(itemId)){
-                this.items.get(i).setStatus("calculation canceled");
+                this.items.get(i).setStatus("calculation_canceled");
                 break;
             }
         }
