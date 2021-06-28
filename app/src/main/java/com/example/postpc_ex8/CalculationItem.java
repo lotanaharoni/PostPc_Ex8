@@ -36,6 +36,15 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         return this.number.compareTo(o.number);
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (!(obj instanceof CalculationItem)){
+            return false;
+        }
+        CalculationItem item = (CalculationItem) obj;
+        return this.getId().equals(item.getId());
+    }
+
     public long getNumber() {
         return number;
     }
