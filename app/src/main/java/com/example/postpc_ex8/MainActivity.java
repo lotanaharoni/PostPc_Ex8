@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         workManager = MyCalculatorApp.getAppInstance().getCalculationWorker();
-        holder = new CalculationHolder();
+        holder = new CalculationHolder(this);
         LiveData<List<WorkInfo>> workTasks = workManager.getWorkInfosByTagLiveData("calculation_item_id");
 
         calculateButton.setOnClickListener(view -> {

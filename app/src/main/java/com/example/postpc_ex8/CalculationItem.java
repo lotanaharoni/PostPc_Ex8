@@ -10,6 +10,8 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     private long root2;
     private String status;
     private final String id;
+    double previousCalcTime;
+    int previousProgress;
 
     public CalculationItem(long number){
         this.number = number;
@@ -17,6 +19,8 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.root1 = -1;
         this.root2 = -1;
         this.status = "currently_calculation";
+        this.previousCalcTime = 0;
+        this.previousProgress = 0;
     }
 
     public void updateRoots(long root1, long root2){
@@ -81,4 +85,23 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.status = status;
     }
 
+    public double getPreviousCalcTime() {
+        return previousCalcTime;
+    }
+
+    public int getPreviousProgress() {
+        return previousProgress;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
+    }
+
+    public void setPreviousCalcTime(double previousCalcTime) {
+        this.previousCalcTime = previousCalcTime;
+    }
+
+    public void setPreviousProgress(int previousProgress) {
+        this.previousProgress = previousProgress;
+    }
 }

@@ -1,14 +1,20 @@
 package com.example.postpc_ex8;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CalculationHolder{
     private ArrayList<CalculationItem> items;
+    private SharedPreferences sp = null;
 
-    public CalculationHolder(){
+
+    public CalculationHolder(Context context){
         this.items = new ArrayList<>();
+        this.sp = context.getSharedPreferences("local_db", Context.MODE_PRIVATE);
     }
 
     public void addNewCalculation(CalculationItem calculationItem){

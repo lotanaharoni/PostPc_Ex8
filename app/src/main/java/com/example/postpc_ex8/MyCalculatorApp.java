@@ -7,13 +7,13 @@ import androidx.work.WorkManager;
 public class MyCalculatorApp extends Application {
     private static MyCalculatorApp appInstance = null;
     private WorkManager calculationWorker;
-    private MyCalculatorLocalDb localDb;
+    private CalculationHolder holder;
 
     @Override
     public void onCreate() {
         super.onCreate();
         appInstance = this;
-        this.localDb = new MyCalculatorLocalDb(this);
+        this.holder = new CalculationHolder(this);
         this.calculationWorker = WorkManager.getInstance(this);
     }
 
@@ -21,8 +21,8 @@ public class MyCalculatorApp extends Application {
         return appInstance;
     }
 
-    public MyCalculatorLocalDb getLocalDb(){
-        return this.localDb;
+    public CalculationHolder getHolder(){
+        return this.holder;
     }
 
     public WorkManager getCalculationWorker() {
