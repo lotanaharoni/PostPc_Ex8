@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ public class MyCalculatorAdapter extends RecyclerView.Adapter<MyCalculatorViewHo
             case "calculation_done":
                 holder.itemDeleteImageButton.setVisibility(View.VISIBLE);
                 holder.progressBarCalculation.setVisibility(View.GONE);
-                // TODO: progressbar: number
                 holder.itemStopImageButton.setVisibility(View.GONE);
                 holder.itemCalculationTitle.setText(returnTitle(item));
                 setDeleteButton(holder, item);
@@ -94,7 +92,6 @@ public class MyCalculatorAdapter extends RecyclerView.Adapter<MyCalculatorViewHo
         return this.allItems.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void setData(List<CalculationItem> newItems){
         this.allItems.clear();
         this.allItems.addAll(newItems);

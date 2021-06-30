@@ -26,8 +26,7 @@ public class CalculationHolder{
         loadFromLocal();
     }
 
-    public void addNewCalculation(long number){
-        CalculationItem newItem = new CalculationItem(number);
+    public void addNewCalculation(CalculationItem newItem){
         items.put(newItem.getId(), newItem);
         saveToLocal(newItem);
         itemsMutable.setValue(this.getItems());

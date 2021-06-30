@@ -20,7 +20,7 @@ public class CalculationWorker extends Worker {
 
     public CalculationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        currentId = getInputData().getString("calculation_item_id");
+        currentId = getInputData().getString("calculation_id");
         if (currentId != null){
             CalculationHolder holder = MyCalculatorApp.getAppInstance().getHolder();
             CalculationItem currentItem = holder.getItem(currentId);
@@ -42,7 +42,7 @@ public class CalculationWorker extends Worker {
         else if (number == 1){
             root1 = number;
             root2 = 1;
-            dataBuilder.putString("number_id", currentId);
+            dataBuilder.putString("calculation_id", currentId);
             dataBuilder.putLong("number", number);
             dataBuilder.putLong("root1", root1);
             dataBuilder.putLong("root2", root2);
@@ -57,22 +57,22 @@ public class CalculationWorker extends Worker {
                 if (System.currentTimeMillis() - timeStartMs <= MAX_CALCULATION_TIME) {
                     root1 = i;
                     root2 = number / i;
-                    dataBuilder.putString("number_id", currentId);
+                    dataBuilder.putString("calculation_id", currentId);
                     dataBuilder.putLong("number", number);
                     dataBuilder.putLong("root1", root1);
                     dataBuilder.putLong("root2", root2);
-                    dataBuilder.putLong("progress", System.currentTimeMillis() - timeStartMs);
+                    dataBuilder.putLong("progress", 100);
                     return Result.success(dataBuilder.build());
                 }
             }
             if (System.currentTimeMillis() - timeStartMs > MAX_CALCULATION_TIME){
-                dataBuilder.putString("number_id", currentId);
+                dataBuilder.putString("calculation_id", currentId);
                 dataBuilder.putLong("number", number);
                 dataBuilder.putString("reason", "illegal_time_to_calculate");
                 return Result.failure(dataBuilder.build());
             }
         }
-        dataBuilder.putString("number_id", currentId);
+        dataBuilder.putString("calculation_id", currentId);
         dataBuilder.putLong("number", number);
         dataBuilder.putLong("root1", 1);
         dataBuilder.putLong("root2", number);
