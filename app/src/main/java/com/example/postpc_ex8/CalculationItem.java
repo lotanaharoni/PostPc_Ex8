@@ -10,8 +10,11 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     private long root2;
     private String status;
     private final String id;
+    private UUID workerId;
     double previousCalcTime;
+    long previousStopped;
     int previousProgress;
+    double finishCalculationTime;
 
     public CalculationItem(long number){
         this.number = number;
@@ -21,12 +24,16 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.status = "currently_calculation";
         this.previousCalcTime = 0;
         this.previousProgress = 0;
+        this.finishCalculationTime = -1;
+        this.workerId = null;
+        this.previousStopped = 0;
     }
 
-    public void updateRoots(long root1, long root2){
+    public void updateRoots(long root1, long root2, double calculationTime){
         this.root1 = root1;
         this.root2 = root2;
         this.status = "calculation_done";
+        this.finishCalculationTime = calculationTime;
     }
 
     @Override
@@ -103,5 +110,35 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
 
     public void setPreviousProgress(int previousProgress) {
         this.previousProgress = previousProgress;
+    }
+
+    public UUID getWorkerId() {
+        return workerId;
+    }
+
+    public double getFinishCalculationTime() {
+        return finishCalculationTime;
+    }
+
+    public void setWorkerId(UUID workerId) {
+        this.workerId = workerId;
+    }
+
+    public void setFinishCalculationTime(double finishCalculationTime) {
+        this.finishCalculationTime = finishCalculationTime;
+    }
+
+    public void setStopped(long stopped, double timeStopped){
+        this.previousStopped = stopped;
+        this.previousCalcTime = timeStopped;
+        this.status = "calculation_stopped";
+    }
+
+    public long getPreviousStopped() {
+        return previousStopped;
+    }
+
+    public void setPreviousStopped(long previousStopped) {
+        this.previousStopped = previousStopped;
     }
 }

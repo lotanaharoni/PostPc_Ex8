@@ -1,7 +1,6 @@
 package com.example.postpc_ex8;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,12 +8,9 @@ import java.util.List;
 
 public class CalculationHolder{
     private ArrayList<CalculationItem> items;
-    private SharedPreferences sp = null;
-
 
     public CalculationHolder(Context context){
         this.items = new ArrayList<>();
-        this.sp = context.getSharedPreferences("local_db", Context.MODE_PRIVATE);
     }
 
     public void addNewCalculation(CalculationItem calculationItem){
@@ -22,10 +18,11 @@ public class CalculationHolder{
         Collections.sort(items);
     }
 
-    public void markItemDone(String itemId){
+    public void markItemDone(String itemId, long root1, long root2, double calculationTime){
         for (int i = 0; i < this.items.size(); i++){
             if (this.items.get(i).getId().equals(itemId)){
                 this.items.get(i).setStatus("calculation_done");
+                this.items.get(i).updateRoots(root1, root2, calculationTime);
                 break;
             }
         }
@@ -36,6 +33,16 @@ public class CalculationHolder{
         for (int i = 0; i < this.items.size(); i++){
             if (this.items.get(i).getId().equals(itemId)){
                 this.items.get(i).setStatus("calculation_canceled");
+                break;
+            }
+        }
+        Collections.sort(this.items);
+    }
+
+    public void markIteFailed(String itemId){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setStatus("calculation_failed");
                 break;
             }
         }
@@ -82,4 +89,22 @@ public class CalculationHolder{
         }
         return null;
     }
-}
+
+    public void setProgress(String itemId, int newProgress){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setPreviousProgress(newProgress);
+                break;
+            }
+        }
+    }
+
+    public void markItemPaused(String itemId, long stopped, double timeStopped){
+        for (int i = 0; i < this.items.size(); i++){
+            if (this.items.get(i).getId().equals(itemId)){
+                this.items.get(i).setStopped(stopped, timeStopped);
+                break;
+            }
+        }
+        Collections.sort(this.items);
+    }}

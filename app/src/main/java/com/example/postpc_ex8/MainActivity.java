@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.StringReader;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MyCalculatorAdapter adapter;
     WorkManager workManager;
-    CalculationHolder holder;
+    CalculationHolder holder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         workManager = MyCalculatorApp.getAppInstance().getCalculationWorker();
-        holder = new CalculationHolder(this);
+        if (holder == null){
+            holder = MyCalculatorApp.getAppInstance().getHolder();
+        }
         LiveData<List<WorkInfo>> workTasks = workManager.getWorkInfosByTagLiveData("calculation_item_id");
 
         calculateButton.setOnClickListener(view -> {
@@ -67,7 +72,38 @@ public class MainActivity extends AppCompatActivity {
 
         workTasks.observe(this, workInfos -> {
             for (WorkInfo workInfo : workInfos){
-                // TODO: add
+                String calculationId = workInfo.getOutputData().getString("calculation_id");
+                if (workInfo.getState() == WorkInfo.State.SUCCEEDED){
+                    if (workInfo.getOutputData().hasKeyWithValueOfType("stopeed", Long.class)){
+                        long stopped = workInfo.getOutputData().getLong("stopped", 0);
+                        double calculationTime = workInfo.getOutputData().getLong("calculation_time", 0);
+                        CalculationItem item = holder.getItem(calculationId);
+                        OneTimeWorkRequest calculationRequest = new OneTimeWorkRequest.Builder(CalculationWorker.class).addTag("calc_roots")
+                                .setInputData(new Data.Builder().putString("item_id", item.getId()).build()).build();
+                        item.setWorkerId(calculationRequest.getId());
+                        workManager.enqueue(calculationRequest);
+                        holder.markItemPaused(item.getId(), stopped, calculationTime);
+
+                    }
+                    else{
+                        long root1 = workInfo.getOutputData().getLong("root1", 0);
+                        long root2 = workInfo.getOutputData().getLong("root2", 0);
+                        double calculationTime = workInfo.getOutputData().getDouble("progress", 0);
+                        this.holder.markItemDone(calculationId, root1, root2, calculationTime);
+                    }
+                }
+                else if (workInfo.getState() == WorkInfo.State.FAILED){
+                    this.holder.markIteFailed(calculationId);
+                }
+                else if (workInfo.getState() == WorkInfo.State.RUNNING){
+                    Data progress = workInfo.getProgress();
+                    String itemProgressId = progress.getString("calcItemId");
+                    int progressNumber = progress.getInt("progress", -1);
+                    if (progressNumber != -1 && itemProgressId != null){
+                        holder.setProgress(itemProgressId, progressNumber);
+                    }
+                   // holder.
+                }
             }
         });
 
@@ -76,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         adapter.onCancelClick = item -> {
-          //  TODO: workManager.cancel
+            workManager.cancelWorkById(item.getWorkerId());
             holder.markItemCanceled(item.getId());
         };
     }
