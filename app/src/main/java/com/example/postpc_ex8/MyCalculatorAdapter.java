@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -34,33 +35,40 @@ public class MyCalculatorAdapter extends RecyclerView.Adapter<MyCalculatorViewHo
     @Override
     public void onBindViewHolder(@NonNull MyCalculatorViewHolder holder, int position) {
         CalculationItem item = this.allItems.get(position);
+        String title;
 
         switch (item.getStatus()) {
             case "currently_calculation":
                 holder.itemDeleteImageButton.setVisibility(View.GONE);
                 holder.progressBarCalculation.setVisibility(View.VISIBLE);
-                holder.itemCancelImageButton.setVisibility(View.VISIBLE);
+                holder.progressBarCalculation.setProgress(item.getCalculationProgress());
+                holder.itemStopImageButton.setVisibility(View.VISIBLE);
+                title = "Calculating roots fot number: " + String.valueOf(item.getNumber());
+                holder.itemCalculationTitle.setText(title);
                 setDeleteButton(holder, item);
                 break;
             case "calculation_done":
                 holder.itemDeleteImageButton.setVisibility(View.VISIBLE);
                 holder.progressBarCalculation.setVisibility(View.GONE);
-                holder.itemCancelImageButton.setVisibility(View.GONE);
+                // TODO: progressbar: number
+                holder.itemStopImageButton.setVisibility(View.GONE);
                 holder.itemCalculationTitle.setText(returnTitle(item));
                 setDeleteButton(holder, item);
                 break;
             case "calculation_failed":
                 holder.itemDeleteImageButton.setVisibility(View.VISIBLE);
                 holder.progressBarCalculation.setVisibility(View.GONE);
-                holder.itemCancelImageButton.setVisibility(View.GONE);
-                holder.itemCalculationTitle.setText("Calculation failed");
+                holder.itemStopImageButton.setVisibility(View.GONE);
+                title = "Calculation roots for number : " + String.valueOf(item.getNumber()) + " failed";
+                holder.itemCalculationTitle.setText(title);
                 setDeleteButton(holder, item);
                 break;
-            case "calculation_canceled":
+            case "calculation_stopped":
                 holder.itemDeleteImageButton.setVisibility(View.VISIBLE);
                 holder.progressBarCalculation.setVisibility(View.GONE);
-                holder.itemCancelImageButton.setVisibility(View.GONE);
-                holder.itemCalculationTitle.setText("Calculation canceled");
+                holder.itemStopImageButton.setVisibility(View.GONE);
+                title = "Calculation roots for number : " + String.valueOf(item.getNumber()) + " stopped";
+                holder.itemCalculationTitle.setText(title);
                 setDeleteButton(holder, item);
                 break;
         }

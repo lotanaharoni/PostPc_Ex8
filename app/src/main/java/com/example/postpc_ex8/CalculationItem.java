@@ -11,10 +11,9 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     private String status;
     private final String id;
     private UUID workerId;
-    double previousCalcTime;
-    long previousStopped;
-    int previousProgress;
-    double finishCalculationTime;
+    private double previousCalcTime;
+    private long previousStopped;
+    private int calculationProgress;
 
     public CalculationItem(long number){
         this.number = number;
@@ -23,8 +22,7 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.root2 = -1;
         this.status = "currently_calculation";
         this.previousCalcTime = 0;
-        this.previousProgress = 0;
-        this.finishCalculationTime = -1;
+        this.calculationProgress = 0;
         this.workerId = null;
         this.previousStopped = 0;
     }
@@ -33,7 +31,8 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         this.root1 = root1;
         this.root2 = root2;
         this.status = "calculation_done";
-        this.finishCalculationTime = calculationTime;
+        this.previousCalcTime = calculationTime;
+        this.calculationProgress = 100;
     }
 
     @Override
@@ -96,10 +95,6 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
         return previousCalcTime;
     }
 
-    public int getPreviousProgress() {
-        return previousProgress;
-    }
-
     public void setNumber(Long number) {
         this.number = number;
     }
@@ -109,24 +104,18 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
     }
 
     public void setPreviousProgress(int previousProgress) {
-        this.previousProgress = previousProgress;
+        this.calculationProgress = previousProgress;
     }
 
     public UUID getWorkerId() {
         return workerId;
     }
 
-    public double getFinishCalculationTime() {
-        return finishCalculationTime;
-    }
 
     public void setWorkerId(UUID workerId) {
         this.workerId = workerId;
     }
 
-    public void setFinishCalculationTime(double finishCalculationTime) {
-        this.finishCalculationTime = finishCalculationTime;
-    }
 
     public void setStopped(long stopped, double timeStopped){
         this.previousStopped = stopped;
@@ -140,5 +129,13 @@ public class CalculationItem implements Serializable, Comparable<CalculationItem
 
     public void setPreviousStopped(long previousStopped) {
         this.previousStopped = previousStopped;
+    }
+
+    public int getCalculationProgress() {
+        return calculationProgress;
+    }
+
+    public void setCalculationProgress(int calculationProgress) {
+        this.calculationProgress = calculationProgress;
     }
 }

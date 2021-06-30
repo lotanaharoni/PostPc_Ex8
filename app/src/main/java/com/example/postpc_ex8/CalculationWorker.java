@@ -21,10 +21,12 @@ public class CalculationWorker extends Worker {
     public CalculationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         currentId = getInputData().getString("calculation_item_id");
-        CalculationHolder holder = MyCalculatorApp.getAppInstance().getHolder();
-        CalculationItem currentItem = holder.getItem(currentId);
-        this.number = currentItem.getNumber();
-        this.previousCalcTime = currentItem.getPreviousCalcTime();
+        if (currentId != null){
+            CalculationHolder holder = MyCalculatorApp.getAppInstance().getHolder();
+            CalculationItem currentItem = holder.getItem(currentId);
+            this.number = currentItem.getNumber();
+            this.previousCalcTime = currentItem.getPreviousCalcTime();
+        }
     }
 
     @NonNull
